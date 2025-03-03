@@ -1,0 +1,14 @@
+<!-- templates/chessboard/accept_challenge.html -->
+
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h2>Accept Challenge</h2>
+    <p>{{ challenge.challenger.username }} has challenged you to a game of chess.</p>
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-success">Accept</button>
+        <a href="{% url 'home' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,73 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Chessboard</title>
+    {% load static %}
+    <link rel="stylesheet" href="{%static 'css/chess.css' %}"/>
+    {% include "bootstrap.html" %}
+    
+</head>
+
+<body>
+  <div class="bg">
+    {% include "navigation.html" %}
+    <h2>Chess Game Rules</h2>
+
+    <div class="rules">
+        
+        <h6>Objective:</h6>
+        <p>The objective of chess is to checkmate your opponent's king. This means placing the king in a position where it is under attack and cannot escape capture.</p>
+
+        <h6>Game Setup:</h6>
+        <ul>
+            <li>The game is played on an 8x8 board with 64 squares of alternating colors.</li>
+            <li>Each player starts with 16 pieces: 1 king, 1 queen, 2 rooks, 2 knights, 2 bishops, and 8 pawns.</li>
+            <li>The player with white pieces moves first, followed by black, and players take turns alternately.</li>
+        </ul>
+
+        <h6>Pieces and Movements:</h6>
+        <ul>
+            <li><strong>King:</strong> Moves one square in any direction (horizontally, vertically, or diagonally). The king cannot move into check.</li>
+            <li><strong>Queen:</strong> Moves any number of squares in any direction (horizontally, vertically, or diagonally).</li>
+            <li><strong>Rook:</strong> Moves any number of squares, but only horizontally or vertically.</li>
+            <li><strong>Bishop:</strong> Moves any number of squares, but only diagonally.</li>
+            <li><strong>Knight:</strong> Moves in an "L" shape: two squares in one direction and then one square perpendicular. Knights are the only pieces that can jump over other pieces.</li>
+            <li><strong>Pawn:</strong> Moves forward one square, but captures diagonally. On its first move, a pawn can move two squares forward. If a pawn reaches the opposite end of the board, it can be promoted to any other piece (except a king).</li>
+        </ul>
+
+        <h6>Special Moves:</h6>
+        <ul>
+            <li><strong>Castling:</strong> This move allows the king and a rook to move simultaneously. The king moves two squares towards the rook, and the rook moves next to the king. Conditions for castling:
+                <ul>
+                    <li>Neither the king nor the rook has moved before.</li>
+                    <li>There are no pieces between the king and the rook.</li>
+                    <li>The king is not in check, and it does not move through or into check.</li>
+                </ul>
+            </li>
+            <li><strong>En Passant:</strong> A special pawn capture that can occur if a pawn moves two squares forward and passes an opponent's pawn that could have captured it if it had moved only one square. The opponent may capture the pawn as if it had moved one square.</li>
+            <li><strong>Promotion:</strong> When a pawn reaches the last rank, it is promoted to a queen, rook, knight, or bishop, at the player's choice.</li>
+        </ul>
+
+        <h6>Check and Checkmate:</h6>
+        <ul>
+            <li><strong>Check:</strong> The king is in check if it is under threat of capture on the opponent’s next move. The player must make a move to eliminate the check.</li>
+            <li><strong>Checkmate:</strong> If the king is in check and there is no legal move to remove the threat, the game ends in checkmate, and the player delivering the checkmate wins.</li>
+        </ul>
+
+        <h6>Draws:</h6>
+        <ul>
+            <li><strong>Stalemate:</strong> If a player has no legal moves but is not in check, the game is a draw.</li>
+            <li><strong>Threefold Repetition:</strong> If the same exact board position occurs three times, a draw can be claimed.</li>
+            <li><strong>50-Move Rule:</strong> If 50 moves are made by each player without a pawn move or capture, either player can claim a draw.</li>
+            <li><strong>Insufficient Material:</strong> If neither player has enough material to force a checkmate (e.g., king vs. king), the game is a draw.</li>
+        </ul>
+
+        <h6>Game Flow:</h6>
+        <p>The game alternates between players until one player checkmates the other’s king, a draw is declared, or a player resigns. Players can also offer draws during the game, and the opponent can either accept or decline.</p>
+
+      </div> 
+      <p class="footer" >@FatimaSultana. All Rights Reserved.</p>
+  </div>
+</body>
+</html>

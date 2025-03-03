@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
+
+body {
+  text-align: center;
+  background-color: #cad1ee;
+}
+
+h1,h2,h3,h4,h5 {
+    font-size: 3em;
+    font-family: "Merriweather", serif !important;
+    font-style: normal;
+    margin: 10px;
+}
+
+tr{
+    margin: 20px;
+}
+
+#joinB{
+    margin: 30px;
+    width: 10rem;
+}
+
+
+.login{
+    width: 490px;
+    height: 320px;
+    margin: 10% auto;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  }
+
+.join{
+width: 90%;
+max-width: 750px;
+margin: 5% auto;
+background-color: #fff;
+border-radius: 10px;
+padding: 10px;
+box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.join input[type="text"], .join input[type="email"], .join input[type="password"] {
+    width: 50%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: 40px;
+}
+
+
+.join .formg {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+
+.join label {
+    display: inline-block;
+    width: 20%;
+    text-align: right;
+    margin-right: 10px;
+}

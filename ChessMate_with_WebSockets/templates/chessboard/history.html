@@ -1,0 +1,108 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Chessboard</title>
+    {% load static %}
+    <link rel="stylesheet" href="{%static 'css/chess.css' %}"/>
+    {% include "bootstrap.html" %}
+    
+</head>
+
+<body>
+    <div class="bg">
+
+        {% include "navigation.html" %}
+        <h2>Chess and It's history</h2>
+        <div class="aboutGame">
+            
+            <h3>The Game of Chess</h3>
+            <p>
+            What is chess? Chess is the great game of strategy between two opposite sides, light-colored and dark-colored, or
+            simply White and Black. White always goes first. The game is played on an 8x8 grid where each piece moves
+            according to specific rules, with the ultimate goal of checkmating the opponent's king. Checkmate occurs when the
+            king is in a position to be captured (in check) and cannot escape through any legal move. Chess challenges players
+            to think critically, plan multiple moves ahead, and anticipate their opponent's strategy.
+            </p>
+
+            <p>A game of chess can end in various ways besides checkmate. If both players agree that a win is unlikely, the game
+            can end in a draw, which may also occur through a stalemate when a player has no legal moves but their king is not
+            in check. Other ways a game may conclude include resignation, repetition of the same position three times, or the
+            fifty-move rule, which allows a draw after fifty moves with no pawn movement or captures.
+            </p>
+
+            <p>In programming, chess is often modeled as a decision tree with each node representing a game state (a board
+            configuration) and each branch representing a legal move. For AI, algorithms like minimax with
+            alpha-beta pruning are used to simulate possible future moves and evaluate their outcomes. Since each position
+            leads to multiple possible moves, the tree expands exponentially, making chess computationally challenging.
+
+            Chess, both as a game and in programming, is a complex challenge of strategy, requiring critical thinking and
+            computational efficiency to navigate its vast possibilities.
+            </p>
+
+
+            <h3>The History of Chess</h3>
+            <p>
+            Chess, a game of strategy played for over 1500 years, originated in India as chaturanga in the 6th century. It
+            spread through Persia and the Islamic world, reaching Europe by the 10th century. The modern version, with its
+            current rules, emerged in Italy and Spain by the 15th century. Early masters like Ruy Lopez and Philidor shaped
+            chess theory, while the Staunton pattern, introduced in the 19th century, became the standard. The first world
+            championship was held in 1886, with Wilhelm Steinitz as the inaugural champion. In the 20th century, FIDE was
+            founded, and Soviet champions like Botvinnik and Kasparov dominated the game. The introduction of computer chess
+            in the 1970s revolutionized play, highlighted by IBMs Deep Blue defeating Kasparov in 1997.
+            </p>
+            <p>
+            Modern chess has become a global game, with professional tournaments, international competitions like the World
+            Chess Championship, and a rapidly growing online presence. Magnus Carlsen, the current world champion, exemplifies
+            the blend of traditional and computer-assisted chess. The game continues to captivate players of all levels,
+            combining a rich historical legacy with evolving strategies and tactics.
+            </p>
+
+            <h3>Chess Pieces and Their Movements</h3>
+            <p>Chess pieces are the most crucial game elements used in chess, each with distinct roles and movements. There are
+              six types of
+              pieces: king, queen, rook, bishop, knight, and pawn, and each player begins with a set of 16 pieces. Let's learn
+              about all of the
+              pieces—specifically, how they move, their placement and how they are valued.</p>
+            <ul>
+              <li><strong>&#9817;Pawn:</strong> Pawns are positioned on the second rank for White and the seventh for Black at
+                the start. They move forward one square at a time, or two squares on their first move, and capture diagonally.
+                Though the weakest piece, worth one point, a pawn can promote to any other piece upon reaching the opposite end
+                of the board, and its value increases as it advances, especially when passed or centrally placed.</li>
+        
+              <li><strong>&#9814;Rook:</strong> Rooks start in the corners of the board (a1 and h1 for White, a8 and h8 for
+                Black) and move horizontally or vertically any number of squares. They are major pieces worth five points and
+                are most powerful on open files and the 7th rank (2nd for Black), where they can attack pawns and control key
+                squares. A pair of rooks can easily checkmate a lone king, and they become particularly valuable in the endgame.
+              </li>
+        
+              <li><strong>&#9816;Knight:</strong> Knights start on b1 and g1 for White, and b8 and g8 for Black, and move in an
+                "L-shape," either two squares in one direction and one in another. They are worth three points and are unique
+                for their ability to jump over other pieces. Knights are strong in closed positions and can perform powerful
+                forks, especially when positioned in the center of the board, where they control up to eight squares. However,
+                they are less effective in open positions.</li>
+        
+              <li><strong>&#9815;Bishop:</strong> Bishops start on c1 and f1 for White, and c8 and f8 for Black, moving
+                diagonally across the board. They are worth three points and are long-range pieces that excel in open positions.
+                A pair of bishops can control large areas of the board, making them tactically powerful, especially on open
+                diagonals. Bishops are stronger than knights in open games, but knights perform better in closed positions. A
+                bishop pair is generally more valuable than a bishop and knight.</li>
+        
+              <li><strong>&#9813;Queen:</strong> The queen starts on d1 for White and d8 for Black and is the most powerful
+                piece in chess, worth nine points. It moves like both a rook and a bishop, covering squares horizontally,
+                vertically, and diagonally. Though extremely strong, it's important not to bring the queen into play too early
+                to avoid being targeted. The queen excels in attacking and checkmating but must be used wisely to avoid traps.
+                In the endgame, the queen can be outmatched by two rooks or multiple minor pieces.</li>
+        
+              <li><strong>&#9812;King:</strong> The king starts on e1 for White and e8 for Black and is the most important piece
+                in chess, as the game's objective is to checkmate the opponent's king. It moves one square in any direction and
+                cannot be captured, but when in check, the player must address the threat. Though not powerful in the opening
+                and middle game, the king becomes crucial in the endgame, where activating it can be a decisive advantage.
+                Keeping the king safe, usually through castling, is a key priority.</li>
+        
+            </ul>            
+        </div> 
+        <p class="footer" >@FatimaSultana. All Rights Reserved.</p>
+    </div>
+</body>
+</html>

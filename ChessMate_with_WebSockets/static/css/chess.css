@@ -1,0 +1,168 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
+
+body {
+  text-align: center;
+}
+
+.navbar {
+  max-height: 70px !important;   
+  padding-left: 30px !important;
+}
+
+li{
+  text-align: left;
+}
+.bg{
+  background-color: #cad1ee;
+}
+
+h2{
+  padding: 20px !important;
+}
+
+h1,h2,h3,h4,h5 {
+  font-family: "Merriweather", serif !important;
+  font-style: normal;
+}
+
+p,li {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', sans-serif;
+  padding: 15px;
+}
+
+.containerInside {
+  margin: 20px;
+}
+.jumbotron p {
+  font-family: "Merriweather", sans-serif;
+  font-size: 16px;
+}
+
+.chessboard table {
+  border-collapse: collapse;
+  width: 500px;
+  height: 500px;
+  margin: 0 auto;
+}
+
+.chessboard th, .chessboard td {
+  width: 50px;
+  height: 50px;
+  text-align: center;
+}
+
+.chessboard th {
+  font-size: 14px;
+  text-align: center !important;
+  height: 25px;
+}
+
+.chessboard td {
+  font-size: 32px;
+  background: chocolate;
+  border: 1px solid rgb(0, 0, 0) !important;
+  font-family: "Arial", sans-serif !important; 
+}
+
+.chessboard tr:nth-child(even) td:nth-child(odd), 
+.chessboard tr:nth-child(odd) td:nth-child(even) {
+  background: tan;
+}
+
+.chessboard-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.action-buttons {
+  display: flex; flex-direction: column; align-items: center; margin-top: 20px;
+}
+
+.move-form{
+  display: flex; justify-content: center;align-items: center;margin-top: 20px;
+}
+.resign-form{
+  display: flex; justify-content: center;
+}
+
+.move-form, .resign-form {
+  margin: 0 10px;
+
+}
+
+.move-form button, .resign-form button {
+  width: 120px;
+  height: 40px;
+  text-align: center;
+}
+
+.aboutGame{
+  width: 60%;
+  size: 30%;
+  margin: 1% auto;
+  background-color: #fff;/*aliceblue;*/
+  border-radius: 10px;
+  padding: 40px;
+}
+.rules{
+  width: 60%;
+  size: 30%;
+  margin: 1% auto;
+  background-color: #fff;/*aliceblue;*/
+  border-radius: 10px;
+  padding: 40px;
+  /* text-align: left; */
+}
+
+
+.rules li{
+  padding: 5px;
+}
+.about-me-container {
+  margin: 0 20% 4%;
+  /* display: flex; */
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px;
+  background-color: #fff;
+  border-radius: 10px;
+  width: 57%;
+  
+}
+
+img{
+  border-radius: 50%;
+  width: 240px;
+  height: auto;
+  object-fit: cover;
+}
+
+.footer{
+  font-family: "Merriweather", serif;
+  font-style: italic;
+  font-size: 13px;
+  margin-bottom: 0;
+}
+
+
+
+.jumbotron{
+  width: 490px;
+  height: 340px;
+  margin: 10% auto;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 30px;
+}
+
+
+/* body {
+  padding-top: 70px; 
+}
+
+@media (max-width: 991.98px) {
+  body {
+      padding-top: 100px; 
+  }
+} */

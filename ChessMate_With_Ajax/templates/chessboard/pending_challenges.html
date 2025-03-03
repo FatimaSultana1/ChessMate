@@ -1,0 +1,17 @@
+<!-- templates/chessboard/pending_challenges.html -->
+
+{% if pending_challenges %}
+    <h2>Pending Challenges</h2>
+    <ul>
+        {% for challenge in pending_challenges %}
+        <li>
+            {{ challenge.challenger.username }} has challenged you.
+            <a href="{% url 'accept_challenge' challenge.id %}" class="btn btn-success btn-sm">Accept</a>
+            <a href="{% url 'decline_challenge' challenge.id %}" class="btn btn-danger btn-sm">Decline</a>
+        </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <h2>Pending Challenges</h2>
+    <p>No pending challenges at the moment.</p>
+{% endif %}

@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1 style="margin-top: 20px;">Chess Game</h1>
+{% if message %}
+<div id="turn-message" class="alert alert-warning alert-dismissible fade show" role="alert">
+    {{ message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %}
+
+<p id="turn-info">It's {% if is_white_turn %}White{% else %}Black{% endif %}'s turn.</p>
+<div class="chessboard-container" style="display: flex; justify-content: center;margin-top: 20px;">
+    <div id="chessboard">
+        {% include 'chessboard.html' %}
+    </div>
+</div>
+<div class="action-buttons">
+    <form method="post" class="move-form" >
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" name="move" class="btn btn-primary" style="margin-top: -15px; margin-left: 20px;">Move</button>
+    </form>
+    <form method="post" class="resign-form">
+        {% csrf_token %}
+        <button type="submit" name="resign" class="btn btn-danger">Resign</button>
+    </form>
+</div>
+<p class="footer" style="margin-top: 40px;">@FatimaSultana. All Rights Reserved.</p>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+function pollGame() {
+    setInterval(function(){
+        $.ajax({
+            url: "{% url 'game_state' game.id %}",
+            success: function(data){
+                if (data.is_active) {
+                    $('#chessboard').html(data.html);
+                    if (data.is_white_turn) {
+                        $('#turn-info').text("It's White's turn.");
+                    } else {
+                        $('#turn-info').text("It's Black's turn.");
+                    }
+                } else {
+                    
+                    window.location.href = "{% url 'home' %}";
+                }
+            }
+        });
+    }, 1000);
+}
+
+$(document).ready(function(){
+    pollGame();
+});
+</script>
+{% endblock %}

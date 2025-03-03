@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-md-6" id="left-dynamic-content">
+        {% include 'chessboard/challenge_player_section.html' %}
+    </div>
+    <div class="col-md-6" id="right-dynamic-content">
+        {% include 'chessboard/new_game_updates.html' %}
+    </div>
+    <!-- Modal for Delete Confirmation -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="modal-body-text">Are you sure you want to delete this game?</p>
+            </div>
+            
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              <form method="POST" id="deleteForm">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-danger">Delete</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function confirmDeleteModal(game_id) {
+    var deleteUrl = "{% url 'delete_game' 0 %}".replace('/0/', '/' + game_id + '/');
+    document.getElementById('deleteForm').action = deleteUrl;
+    document.getElementById('modal-body-text').innerText = "Are you sure you want to delete this game?";
+    $('#deleteModal').modal('show');
+}
+const userId = "{{ request.user.id }}";
+const wsScheme = window.location.protocol === "https:" ? "wss" : "ws";
+const userSocket = new WebSocket(
+    wsScheme + '://' + window.location.host + '/ws/user/' + userId + '/'
+);
+
+userSocket.onmessage = function(e) {
+    const data = JSON.parse(e.data);
+    if (data.action === 'new_challenge') {
+        fetch("{% url 'fetch_pending_challenges' %}", {
+                credentials: 'include',
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('pending-challenges-section').innerHTML = data.challenges_html;
+            });
+    } else if (data.action === 'challenge_accepted') {
+        // Opponent accepted the challenge
+        alert(`${data.from} has accepted your challenge!`);
+        // Redirect to home or refresh the page
+        window.location.href = "{% url 'home' %}";
+    }
+    else if (data.action === 'challenge_declined') {
+        alert(`${data.from} has declined your challenge.`);
+        // Optionally, refresh the challenge section
+        fetch("{% url 'fetch_new_game_updates' %}")
+           .then(response => response.json())
+           .then(data => {
+               if (data.left_html) {
+                   document.getElementById('left-dynamic-content').innerHTML = data.left_html;
+               }
+           });
+    }
+};
+
+userSocket.onopen = function(e) {
+    console.log("WebSocket connection established for user updates.");
+};
+
+userSocket.onerror = function(e) {
+    console.error("WebSocket error:", e);
+};
+
+userSocket.onclose = function(e) {
+    console.log("WebSocket connection closed for user updates.");
+};
+const lobbySocket = new WebSocket(
+        wsScheme + '://' + window.location.host + '/ws/new_game/'
+    );
+
+    lobbySocket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        if (data.action === 'update') {
+            fetch("{% url 'fetch_new_game_updates' %}", {
+                    credentials: 'include',
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.left_html) {
+                        document.getElementById('left-dynamic-content').innerHTML = data.left_html;
+                    }
+                    if (data.right_html) {
+                        document.getElementById('right-dynamic-content').innerHTML = data.right_html;
+                    }
+                });
+        }
+    };
+
+    lobbySocket.onopen = function(e) {
+        console.log("WebSocket connection established for new game updates.");
+    };
+
+    lobbySocket.onerror = function(e) {
+        console.error("WebSocket error:", e);
+    };
+
+    lobbySocket.onclose = function(e) {
+        console.log("WebSocket connection closed for new game updates.");
+    };
+</script>
+{% endblock %}

@@ -1,0 +1,23 @@
+<html>
+<head>
+    {% include "bootstrap.html" %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/collapse.css' %}?v=1.01">
+</head>
+<body>
+    <div class="bg">
+        {% include "navigation.html" %}
+        
+        <div class="containerInside"> 
+            
+            <div class="jumbotron join">
+                <h4>Join</h4>
+                <form method="POST">{% csrf_token %}
+                    {{ join_form.as_p }}
+                    <input type="submit" class="btn btn-primary" id="joinB" value="Join">
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

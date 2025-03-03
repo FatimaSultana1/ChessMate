@@ -1,0 +1,45 @@
+<div id="pending-challenges-section">
+    {% include 'chessboard/pending_challenges.html' %}
+</div>
+
+<h2>Your Game History</h2>
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+{% endif %}
+
+<table class="table table-striped journal-table">
+    <thead>
+        <tr>
+            <th>Opponent</th>
+            <th>Moves</th>
+            <th>Outcome</th>
+            <th>Journal Entries</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for entry in game_entries %}
+        <tr>
+            <td>{{ entry.opponent.username }}</td>
+            <td>{{ entry.moves_count }}</td>
+            <td>{{ entry.outcome }}</td>
+            <td class="journal-entry-cell">
+                {% if entry.journal_entry %}
+                    <div class="mb-2">
+                        <strong>Entry:</strong> {{ entry.journal_entry.entry|truncatewords:10 }}
+                        <a href="{% url 'edit_journal_entry' entry.journal_entry.id %}" class="btn btn-sm btn-secondary">Edit</a>
+                        <button class="btn btn-sm btn-danger" onclick="confirmDeleteModal('{{ entry.game.id }}')">Delete Game</button>
+                    </div>
+                {% else %}
+                    <a href="{% url 'add_journal_entry' entry.game.id %}" class="btn btn-primary btn-sm">Add Journal Entry</a>
+                    <button class="btn btn-sm btn-danger" onclick="confirmDeleteModal('{{ entry.game.id }}')">Delete Game</button>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

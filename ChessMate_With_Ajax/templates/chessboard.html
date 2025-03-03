@@ -1,0 +1,17 @@
+
+<table class="chessboard">
+    {% for row in board %}
+    <tr>
+        <th>{{ forloop.revcounter }}</th>
+        {% for key, value in row.items %}
+        <td>{% autoescape off %}{{ value }}{% endautoescape %}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+    <tr>
+        <th></th>
+        {% for file in files %}
+        <th>{{ file }}</th>
+        {% endfor %}
+    </tr>
+</table>

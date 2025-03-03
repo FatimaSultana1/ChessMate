@@ -1,0 +1,49 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Chessboard</title>
+    {% include "bootstrap.html" %}
+    {% load static %}
+    
+    <link rel="stylesheet" href="{%static 'css/chess.css' %}"/>
+</head>
+
+<body >
+  <div class="bg">
+    {% include "navigation.html" %}
+    <h2 style="padding: 20px;">About Me</h2>
+
+    <div class="about-me-container">
+
+      <div class="image-container">
+        <img src="{%static 'images/profile.jpg' %}" alt="Picture of Fatima Sultana" width="200" height="200">
+      </div>
+
+      <div class="text-container">
+        <p><strong>Fatima Sultana</strong></p>
+        <p>
+          Hello, I'm Fatima Sultana, a master's student in computer science at Chico State with a
+          strong passion for software development, data science, artificial intelligence, and
+          machine learning. I've gained valuable experience through an internship as a web developer,
+          focusing on the LAMP stack, and as a machine learning research assistant at JNTUH, where
+          I worked on natural language processing and recommendation systems. As a Teaching Assistant,
+          I guide students in programming, algorithms, and data structures, enhancing both my teaching and technical
+          skills.
+        </p>
+        <p>
+          My ultimate goal is to work in the software industry, gain substantial experience, and
+          eventually pursue a PhD, aspiring to become a professor in software engineering or machine
+          learning. Outside of academics, I enjoy hiking, gardening, and playing badminton, which helps
+          me stay active and balanced.
+        </p>
+      </div>
+
+    </div> 
+    <p class="footer">@FatimaSultana. All Rights Reserved.</p>
+  </div>
+
+  
+  
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Chess Game</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/chess.css' %}?v=1.01">
+    {% include "bootstrap.html" %}
+    
+</head>
+<body>
+    {% include "navigation.html" %}
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+    {% block scripts %}
+    {% endblock %}
+    
+</body>
+</html>

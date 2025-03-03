@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1 style="margin-top: 20px;">Chess Game</h1>
+<p>White: {{ game.player_white.username }} vs Black: {{ game.player_black.username }}</p>
+{% if messages %}
+    {% for message in messages %}
+    <div id="turn-message" class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+{% endif %}
+
+<p id="turn-info">It's {% if is_white_turn %}White{% else %}Black{% endif %}'s turn.</p>
+<div class="chessboard-container" style="display: flex; justify-content: center; margin-top: 20px;">
+    <div id="chessboard">
+        {% include 'chessboard/chessboard.html' %}
+    </div>
+</div>
+<div class="action-buttons" style="margin-top: 20px;">
+    <input type="text" id="move-input" placeholder="Enter move in UCI format">
+    <button id="move-button" class="btn btn-primary" style="margin-left: 10px;">Move</button>
+    <button id="resign-button" class="btn btn-danger" style="margin-left: 10px;">Resign</button>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const gameId = "{{ game.id }}";
+    const wsScheme = window.location.protocol === "https:" ? "wss" : "ws";
+    const gameSocket = new WebSocket(
+        wsScheme + '://' + window.location.host + '/ws/game/' + gameId + '/'
+    );
+
+    gameSocket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        if (data.error) {
+            alert(data.error);
+        } else if (data.board_html) {
+            // Update the chessboard
+            document.getElementById('chessboard').innerHTML = data.board_html;
+            // Update turn information
+            if (data.is_white_turn) {
+                document.getElementById('turn-info').textContent = "It's White's turn.";
+            } else {
+                document.getElementById('turn-info').textContent = "It's Black's turn.";
+            }
+            // Redirect if game is over
+            if (!data.is_active) {
+                if (data.winner) {
+                    alert(`Game over! ${data.winner} wins.`);
+                } else {
+                    alert("Game over! It's a draw.");
+                }
+                window.location.href = "{% url 'home' %}";
+            }
+        }
+    };
+
+
+    gameSocket.onopen = function(e) {
+        console.log("WebSocket connection established for game.");
+    };
+
+    gameSocket.onerror = function(e) {
+        console.error("WebSocket error:", e);
+    };
+
+    gameSocket.onclose = function(e) {
+        console.log("WebSocket connection closed for game.");
+    };
+
+    document.getElementById('move-button').addEventListener('click', function() {
+        const moveInput = document.getElementById('move-input').value;
+        if (moveInput.trim() === "") {
+            alert("Please enter a move.");
+            return;
+        }
+        // Send move via WebSocket
+        gameSocket.send(JSON.stringify({
+            'action': 'move',
+            'move': moveInput,
+            'user_id': '{{ request.user.id }}'
+        }));
+        document.getElementById('move-input').value = '';
+    });
+
+    document.getElementById('resign-button').addEventListener('click', function() {
+        if (confirm("Are you sure you want to resign?")) {
+            // Send resign via WebSocket
+            gameSocket.send(JSON.stringify({
+                'action': 'resign',
+                'user_id': '{{ request.user.id }}'
+            }));
+        }
+    });
+</script>
+{% endblock %}

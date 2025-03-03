@@ -1,0 +1,25 @@
+<!-- challenge_player_section.html -->
+<h2>Challenge a Player</h2>
+<div id="online-users-section">
+    <ul>
+        {% for opponent in opponents %}
+        <li id="user-{{ opponent.id }}">
+            {{ opponent.username }} - 
+            <a href="{% url 'challenge_player' opponent.id %}" class="btn btn-primary btn-sm">Challenge</a>
+        </li>
+        {% empty %}
+            <p>No users are currently online.</p>
+        {% endfor %}
+    </ul>
+</div>
+
+{% if sent_challenges %}
+    <h3>Challenges Sent</h3>
+    <ul>
+        {% for challenge in sent_challenges %}
+        <li>
+            Waiting for {{ challenge.opponent.username }} to respond.
+        </li>
+        {% endfor %}
+    </ul>
+{% endif %}

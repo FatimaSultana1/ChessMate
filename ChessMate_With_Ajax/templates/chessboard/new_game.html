@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-md-6" id="left-dynamic-content">
+        {% include 'chessboard/challenge_player_section.html' %}
+    </div>
+    <div class="col-md-6" id="right-dynamic-content">
+        {% include 'chessboard/new_game_updates.html' %}
+    </div>
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="modal-body-text">Are you sure you want to delete this item?</p>
+            </div>
+            
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              <form method="POST" id="deleteForm">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-danger">Delete</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function confirmDeleteModal(game_id) {
+    var deleteUrl = "{% url 'delete_game' 0 %}".replace('/0/', '/' + game_id + '/');
+    document.getElementById('deleteForm').action = deleteUrl;
+    document.getElementById('modal-body-text').innerText = "Are you sure you want to delete this game?";
+    $('#deleteModal').modal('show');
+}
+function pollForUpdates() {
+    setInterval(function(){
+        $.ajax({
+            url: "{% url 'fetch_new_game_updates' %}",
+            success: function(data){
+                $('#left-dynamic-content').html(data.left_html);
+                $('#right-dynamic-content').html(data.right_html);
+            },
+            error: function(xhr, status, error){
+                console.error("Error fetching updates:", error);
+            }
+        });
+    }, 5000);
+}
+
+$(document).ready(function(){
+    pollForUpdates();
+
+    // Check for active game
+    setInterval(function(){
+        $.ajax({
+            url: "{% url 'check_active_game' %}",
+            success: function(data){
+                if (data.has_active_game) {
+                    window.location.href = "{% url 'home' %}";
+                }
+            }
+        });
+    }, 5000);
+});
+</script>
+{% endblock %}

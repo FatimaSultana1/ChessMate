@@ -1,0 +1,14 @@
+<!-- templates/chessboard/decline_challenge.html -->
+
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h2>Decline Challenge</h2>
+    <p>Are you sure you want to decline the challenge from {{ challenge.challenger.username }}?</p>
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Decline</button>
+        <a href="{% url 'home' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}
